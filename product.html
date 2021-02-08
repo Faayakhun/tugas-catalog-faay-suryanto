@@ -10,12 +10,21 @@
 
     <title>Food Catalog</title>
     <style>
-        .bgheader{
-            background-image: url("images/banner.jpg");
-            background-size: cover;
+       .btn {
+          margin-bottom: 20px;
         }
-        .fc {
-            color: white;
+
+        .card img{
+          align-self: center;
+        }
+
+        .card img:hover{
+          opacity: 0.8;
+          transition: 0.2s;
+        }
+
+        .card .btn:hover{
+          color: tomato;
         }
     </style>
   </head>
@@ -44,21 +53,27 @@
   <!-- Nasvigasi end -->
   
   <!-- Katalog start -->
-      <section class="py-5 text-center bgheader">
-        <div class="row py-lg-5">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-dark fc">Our Wide Selection</h1>
-            <p class="lead fc">In modern day and age technology made human life easier-including buying food online. We from Nu-santara commited only to serve traditional indonesian food blended with modern technology to guarantee your satisfication.</p>
-          </div>
-        </div>
-      </section>
+  <section class="py-5 text-center bgheader">
 
-      <div class="album py-5 bg-dark bgbody">
-        <div class="container">
-                <div id="namaMakanan" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-    </div>
-        </div>
+    <div class="container">
+        <div class="row py-lg-5">
+            <div class="text-light mx-auto">
+              <h1 class="fw-dark fc display-1">Our Wide Selection</h1>
+              <p class="lead fc ">In modern day and age technology made human life easier-including buying food online. We from NU-SANTARA commited only to serve 
+                traditional indonesian food blended with modern technology to guarantee your satisfication. 
+              </p>
             </div>
+        </div>
+    </div>
+
+  </section>
+
+  <div class="album py-5">
+      <div class="container ">
+          <div id="namaMakanan" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          </div>
+      </div>
+  </div>
   <!-- Katalog end -->
 
       <!-- Membuat footer start -->
