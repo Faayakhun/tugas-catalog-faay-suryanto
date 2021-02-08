@@ -63,15 +63,19 @@ let display = ()=>{
         let cardo = document.createElement("div");
         cardo.innerHTML = `
         <div class="col">
-              <div class="card shadow-sm">
-                <img style="width: 400px; height: 300px;" src="${item.gambarMakanan}" class="img-thumbnail" alt="">
-    
+              <div class="card shadow-sm border-dark">
+                
+              <img style="width: 100%; height: 300px;" src="${item.gambarMakanan}" class="card-img-top" alt="">
+              
+
+            
+
                 <div class="card-body">
-                  <h5 class="card-title">${item.nama}</h5>
+                  <h5 class="card-title fs-3 fw-normal">${item.nama}</h5>
                   <p class="card-text">${item.desc}</p>
                   <a href="${item.linkWiki}" class="btn btn-dark" target= "_blank">Learn more</a>
                   <div class="d-flex justify-content-between align-items-center"> 
-                    <small class="text-muted">© Nu-santara</small>
+                    <small class="text-muted">© NU-SANTARA</small>
                   </div>
                 </div>
               </div>
