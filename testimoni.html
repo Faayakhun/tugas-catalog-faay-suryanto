@@ -12,6 +12,30 @@
     <link rel="stylesheet" href="adding-style.css">
 
     <title>Testimonial</title>  
+
+    <style>
+
+   .navbar-nav .navButton {
+       
+       position: fixed;
+       right: 20px;
+       
+     }
+
+     .hide {
+       display: none;
+     }
+
+     .unhide {
+       display: inline-block;
+     }
+
+     #logoutGreetings {
+       text-transform: uppercase;
+     }
+    </style>
+
+
   </head>
   <body>
     
@@ -26,10 +50,23 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                 
-                <a class="nav-link" aria-current="page" href="index.html">Home</a>
-                <a class="nav-link" href="product.html">Catalog</a>
-                <a class="nav-link active" href="testimoni.html" >Customers</a>
-                <a class="nav-link" href="aboutus.html">About</a>
+                    <a class="nav-link " href="index.html">Home</a>
+                    <a class="nav-link" href="product.html">Catalog</a>
+                    <a class="nav-link" href="cart.html">Cart</a>
+                    <a class="nav-link active"  aria-current="page" href="testimoni.html" >Customers</a>
+                    <a class="nav-link " href="aboutus.html">About</a>
+
+                     <!-- Menu login -->
+                <div class="navButton">
+                    <button type="button" class="btn btn-light" id="loginButtonHome" onclick="loginForm()">Login</button>
+                    <button type="button" class="btn btn-primary" id="registerButtonHome" onclick="registerForm()">Register</button>
+                   </div>
+                 
+                   <div class="navButton">
+                    <button class="hide" id="logoutGreetings"></button>
+                    <button class="hide" id="cartItem" onclick="checkout()">0</button>
+                    <button type="button" class="btn border-danger text-danger hide" id="logoutButton" onclick="logout()">LOG OUT</button>
+                   </div>
                 
                 </div>
             </div>
@@ -192,7 +229,7 @@
 
 
 
-
+      <script src="testimoni.js"></script>
 
 
 

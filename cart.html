@@ -10,12 +10,11 @@
 
     <title>Food Catalog</title>
     <style>
-
-      body {
+      body{
         min-height: 100%;
         height: 100vh;
       }
-
+  
       .bgheader{
             background-image: url("images/banner.jpg");
             background-size: cover;
@@ -23,19 +22,6 @@
 
        .btn {
           margin-bottom: 20px;
-        }
-
-        .card img{
-          align-self: center;
-        }
-
-        .card img:hover{
-          opacity: 0.8;
-          transition: 0.2s;
-        }
-
-        .card .btn:hover{
-          color: tomato;
         }
 
         .navbar-nav .navButton {
@@ -56,13 +42,76 @@
      #logoutGreetings {
        text-transform: uppercase;
      }
+     .form-popup {
+      display: none;
+      position: fixed;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 3px solid #f1f1f1;
+      z-index: 9;
+    }
+    .form-container {
+    max-width: 500px;
+    padding: 10px;
+    background-color: white;
+    }
+
+
+    .form-container input[type=text] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+    }
+
+    .form-container input[type=password]{
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+    }
+
+    .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+    }
+
+    .form-container .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+    }
+
+/* Add a red background color to the cancel button */
+    .form-container .cancel {
+    background-color: red;
+    }
+
+/* Add some hover effects to buttons */
+    .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+    }
+
+    #statusOrder{
+      display: none;
+      text-align: center;
+      margin-top: 10px;
+    }       
     </style>
   </head>
   <body>
 
-    <div class="h-100 d-flex flex-column justify-content-between">
-    
 
+    <div class="d-flex flex-column justify-content-between h-100">
+    
 
     <!-- Navigasi start -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -74,9 +123,9 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 
-                <a class="nav-link " href="index.html">Home</a>
-                <a class="nav-link active"  aria-current="page" href="product.html">Catalog</a>
-                <a class="nav-link" href="cart.html">Cart</a>
+                <a class="nav-link "  href="index.html">Home</a>
+                <a class="nav-link" href="product.html">Catalog</a>
+                <a class="nav-link active" aria-current="page" href="cart.html">Cart</a>
                 <a class="nav-link" href="testimoni.html" >Customers</a>
                 <a class="nav-link" href="aboutus.html">About</a>
 
@@ -91,7 +140,6 @@
                   <button class="hide" id="cartItem" onclick="checkout()">0</button>
                   <button type="button" class="btn border-danger text-danger hide" id="logoutButton" onclick="logout()">LOG OUT</button>
                  </div>
-                
               
               </div>
           </div>
@@ -101,43 +149,102 @@
 
 
 
-
-  
-  <!-- Katalog start -->
   <!-- Banner -->
   <section class="py-5 text-center bgheader">
 
     <div class="container">
         <div class="row py-lg-5">
             <div class="text-light mx-auto">
-              <h1 class="fw-dark fc display-1">Our Wide Selection</h1>
-              <p class="lead fc ">In modern day and age technology made human life easier-including buying food online. We from NU-SANTARA commited only to serve 
-                traditional indonesian food blended with modern technology to guarantee your satisfication. 
-              </p>
+              <h1 class="fw-dark fc display-1">CHECK OUT</h1>
             </div>
         </div>
     </div>
 
   </section>
+ <!-- Banner end -->
 
- 
-  <div class="album p-5 d-flex justify-content-center">
+  <div id="statusOrder">
+    <h1>Thank you for your patronage</h1>
+    <h3>your order will arrive shortly</h3>
+  </div>
+  <div class="container text-center" >
 
-    <div class="container">
-
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="display">
-      <div class="container text-center text-muted"> <h1 class="fw-normal">Please Wait...</h1></div>
+    <div class="row">
+        <div class="col p-5">
+            <img src="images/cart-empty.png" style="width: 40%; height: auto;" id="cartEmpty">
+       </div>
     </div>
 
+    <div class="row">
+        <p id="strangerText">You have to <a href="login.html">Login</a> or <a href="register.html">Register</a> to view your order</p>
+    </div>
+
+  
   </div>
+  
 
-  </div>
+   <!-- User's cart display -->
+
+    <div class= "container">
+
+        <div class="row " id="display">
+          
+          <table class="table table-sm  " id="tesTable">
+            
+          </table>
+        
 
 
-  <!-- Katalog end -->
+          <div class="container">
 
- 
+            <div class="row text-center" >
 
+            <table class="hide" id="displayTotal">
+              
+              
+              <tr>
+                
+                <td class="col-1 text-start"> <h5 class="fw-bold">Total</h5></td>
+                <td class="col-1 text-start ps-5 fw-bold" ><p id="displayTotalHarga">Harga : </p></td>
+                <td class="col-1 text-center"> <button type="button" onclick="openCheckout()" class="btn btn-sm btn-dark hide" data-bs-toggle="modal" data-bs-target="#exampleModal" id="customModal">Payment</button></td>
+              
+              </tr>
+            
+
+
+           </table>
+
+            </div>
+
+          </div>
+
+
+
+
+        </div>
+     </div>
+
+
+    <!-- User's cart display end -->  
+
+    <div class="form-popup" id="myForm">
+      <form  class="form-container">
+        <h1 style="text-align: center;">Checkout Form</h1>
+    
+        <label for="name"><b>Recipient Name</b></label>
+        <input id="name" type="text" placeholder="Enter Recipient Name" name="name" required>
+
+        <label for="address"><b>Address</b></label>
+        <input id="address" type="text" placeholder="Enter Address" name="address" required>
+        
+        <button type="button" class="btn" onclick="checkout()">Checkout</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
+    </div>
+    
+
+
+    
       <!-- Membuat footer start -->
       <footer class="bg-light text-center text-lg-start mt-5">           
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
@@ -147,13 +254,27 @@
       <!-- Membuat footer end -->
 
 
-      <script src="product.js"></script>
+
+
+
+</div>
+   
+
+    
+<script src="cart.js"></script>
 
 
 
 
 
-    </div>
+
+
+
+
+
+
+
+
 
 
 
@@ -165,7 +286,6 @@
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
- 
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
