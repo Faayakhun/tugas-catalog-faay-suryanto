@@ -5,7 +5,7 @@ let loginButtonHome = document.querySelector("#loginButtonHome");
 let registerButtonHome = document.querySelector("#registerButtonHome");
 let logoutGreetings = document.querySelector("#logoutGreetings");
 let logoutButton = document.querySelector("#logoutButton");
-let customModal = document.querySelector("#customModal");
+let paymentButton = document.querySelector("#paymentButton");
 
 
  let local = localStorage.getItem("user")
@@ -44,7 +44,7 @@ if (local) {
     registerButtonHome.setAttribute("class" , "hide")
     logoutGreetings.setAttribute("class" , "btn btn-dark unhide")
     logoutButton.setAttribute("class" , "btn border-danger text-danger unhide")
-    customModal.setAttribute("class" , "btn btn-dark unhide")
+    paymentButton.setAttribute("class" , "btn btn-dark unhide")
     logoutGreetings.innerHTML = `Halo ${localObj.name}`
     displayTotal.setAttribute("class" , " table table-sm table-borderless ")
 
@@ -142,6 +142,11 @@ const deleteItem = (id) => {
 
 
 checkout = () => {
+
+    document.getElementById("paymentButton").style.display = "none";
+    document.getElementById("statusOrder").style.display = "block";
+    document.getElementById("displayTotal").style.display = "none";
+    closeForm()
     fetch (`https://6023a8436bf3e6001766b514.mockapi.io/login-app/${localObj.id}/barang`)
 
     .then(result => result.json())
@@ -151,10 +156,7 @@ checkout = () => {
             deleteItem(items.id)
         })
     })
-    document.getElementById("customModal").style.display = "none";
-    document.getElementById("statusOrder").style.display = "block";
-    document.getElementById("displayTotal").style.display = "none";
-    closeForm()
+    
 }
 
 
