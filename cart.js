@@ -1,13 +1,13 @@
 
 
-
+// Inisialisasi ID HTML
 let loginButtonHome = document.querySelector("#loginButtonHome");
 let registerButtonHome = document.querySelector("#registerButtonHome");
 let logoutGreetings = document.querySelector("#logoutGreetings");
 let logoutButton = document.querySelector("#logoutButton");
 let paymentButton = document.querySelector("#paymentButton");
 
-
+// Inisialisasi Local Storage
  let local = localStorage.getItem("user")
  let localObj = JSON.parse(local)
 
@@ -29,16 +29,15 @@ logout = () => {
 
 function openCheckout() {
     document.getElementById("myForm").style.display = "block";
-    }
+}
 
-    function closeForm() {
+function closeForm() {
     document.getElementById("myForm").style.display = "none";
-    }
+}
 
 
-
+// DOM Login Greetings
 if (local) {
-    //alert (`Halo ${localObj.name}, Selamat datang kembali!`)
 
     loginButtonHome.setAttribute("class" , "hide")
     registerButtonHome.setAttribute("class" , "hide")
@@ -51,30 +50,22 @@ if (local) {
 }
 
 
-
+// DOM User Cart Display
 const userDisplayCart = () => {
 
 
     let totalHarga = 0;
 
-    
-    
     document.querySelector("#tesTable").innerHTML = "";
    
-
+    // Prevent Unregistered Accsess
     if (local == undefined){
         return;
     }
 
-
-
-
     document.querySelector("#cartEmpty").setAttribute("class" , "hide")
     document.querySelector("#strangerText").setAttribute("class" , "hide")
     let showcaseDisplay = document.querySelector("#showcaseDisplay")
-
-
-    console.log(localObj);
 
     fetch (`https://6023a8436bf3e6001766b514.mockapi.io/login-app/${localObj.id}/barang`)
 
@@ -92,31 +83,21 @@ const userDisplayCart = () => {
         data.forEach(items => {
         
             let createDiv = document.createElement("TR")
-
-            
-
-    
-            
-            createDiv.innerHTML = `     
-
-                                <tbody>                      
+ 
+            createDiv.setAttribute("id","barisTabel-" +items.id)
+                   
+            createDiv.innerHTML = `                    
                                 <td class=" col-4"><h5 class="fw-light">${items.produk}</h5></td>
                                 <td class="col-4 ps-5"><p>Harga : ${items.harga}</p></td>
                                 <td class="col-4 text-center"><button class="btn btn-outline-dark btn-sm"  type="button" onclick = "deleteItem(${items.id})">delete</button></td>
-                                </tbody>
                                 `
-
             displayTable.appendChild(createDiv)
 
-            
             totalHarga += items.harga
 
         });
 
         displayTotalHarga.innerHTML = "Total : " +totalHarga
-
-        
-
         
     })
 
@@ -124,6 +105,12 @@ const userDisplayCart = () => {
 }
 
 userDisplayCart()
+
+
+
+
+
+// CRUD Delete
 
 const deleteItem = (id) => {
 
@@ -135,11 +122,16 @@ const deleteItem = (id) => {
  
  fetch (`https://6023a8436bf3e6001766b514.mockapi.io/login-app/${localObj.id}/barang/${id}` , option)
 
- .then (result =>  userDisplayCart()   )
+ .then (result =>   {
 
+    document.getElementById("barisTabel-" +id).remove()
+
+ }  )
 
 }
 
+
+// Checkout Function
 
 checkout = () => {
 
@@ -147,6 +139,7 @@ checkout = () => {
     document.getElementById("statusOrder").style.display = "block";
     document.getElementById("displayTotal").style.display = "none";
     closeForm()
+
     fetch (`https://6023a8436bf3e6001766b514.mockapi.io/login-app/${localObj.id}/barang`)
 
     .then(result => result.json())
