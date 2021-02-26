@@ -5,7 +5,9 @@ let loginButtonHome = document.querySelector("#loginButtonHome");
 let registerButtonHome = document.querySelector("#registerButtonHome");
 let logoutGreetings = document.querySelector("#logoutGreetings");
 let logoutButton = document.querySelector("#logoutButton");
-let paymentButton = document.querySelector("#paymentButton");
+let customModal = document.querySelector("#customModal");
+let cartItem = document.querySelector("#cartItem")
+let userEmptyCart = document.querySelector("#userEmptyCart")
 
 // Inisialisasi Local Storage
  let local = localStorage.getItem("user")
@@ -32,7 +34,7 @@ function openCheckout() {
 }
 
 function closeForm() {
-    document.getElementById("myForm").style.display = "none";
+    customModal.hide();
 }
 
 
@@ -43,11 +45,29 @@ if (local) {
     registerButtonHome.setAttribute("class" , "hide")
     logoutGreetings.setAttribute("class" , "btn btn-dark unhide")
     logoutButton.setAttribute("class" , "btn border-danger text-danger unhide")
-    paymentButton.setAttribute("class" , "btn btn-dark unhide")
+    customModal.setAttribute("class" , "btn btn-dark unhide")
     logoutGreetings.innerHTML = `Halo ${localObj.name}`
     displayTotal.setAttribute("class" , " table table-sm table-borderless ")
+    userEmptyCart.setAttribute("class", "unhide")
+}
+
+const hideEmptyCart = () => {
+
+    fetch (`https://6023a8436bf3e6001766b514.mockapi.io/login-app/${localObj.id}/barang`)
+
+    .then (result => result.json())
+    .then (data => {
+
+        if (data.length > 0){
+            userEmptyCart.setAttribute("class","hide")
+        }
+
+
+    } )
 
 }
+
+hideEmptyCart()
 
 
 // DOM User Cart Display
@@ -134,11 +154,12 @@ const deleteItem = (id) => {
 // Checkout Function
 
 checkout = () => {
-
-    document.getElementById("paymentButton").style.display = "none";
+    let validateAddress = document.getElementById("address-text").value
+    let newAddress = validateAddress.toLowerCase()
+    let validateRegex = new RegExp ("jakarta")
+    if (validateRegex.test(newAddress) == true) {
     document.getElementById("statusOrder").style.display = "block";
     document.getElementById("displayTotal").style.display = "none";
-    closeForm()
 
     fetch (`https://6023a8436bf3e6001766b514.mockapi.io/login-app/${localObj.id}/barang`)
 
@@ -150,7 +171,11 @@ checkout = () => {
         })
     })
     
+} else {
+    alert("Delivery order only to Jakarta area")
 }
+}
+
 
 
 
