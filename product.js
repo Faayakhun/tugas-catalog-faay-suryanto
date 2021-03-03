@@ -115,8 +115,9 @@ function counter (harga) {
     let quantityinput = document.querySelector("#quantityinput")
     let quantity = parseInt(quantityInput.value)
     let displayHarga = harga
-    let a = 12345
-    let b = "asd"
+
+    quantity = 1
+    quantityInput.value = 1
     
 
         quantityDownButton.addEventListener ("click" , function (){        
@@ -125,6 +126,7 @@ function counter (harga) {
                 quantity --
                 quantityInput.value = quantity
                itemPrice.innerHTML = (displayHarga -= harga)
+               console.log(quantity)
 
             }
 
@@ -134,7 +136,7 @@ function counter (harga) {
             quantity ++
             quantityInput.value = quantity
             itemPrice.innerHTML = (displayHarga += harga)
-
+            console.log(quantity)
 
         })
 
