@@ -60,6 +60,7 @@ const hideEmptyCart = () => {
 
         if (data.length > 0){
             userEmptyCart.setAttribute("class","hide")
+            document.getElementById("totalPaymentRow").setAttribute("class","")
         }
 
 
@@ -107,9 +108,11 @@ const userDisplayCart = () => {
             createDiv.setAttribute("id","barisTabel-" +items.id)
                    
             createDiv.innerHTML = `                    
-                                <td class=" col-4"><h5 class="fw-light">${items.produk}</h5></td>
-                                <td class="col-4 ps-5"><p>Harga : ${items.harga}</p></td>
-                                <td class="col-4 text-center"><button class="btn btn-outline-dark btn-sm"  type="button" onclick = "deleteItem(${items.id})">delete</button></td>
+                                <td class=" col-2"><h5 class="fw-light">${items.produk}</h5></td>
+                                <td class="col-1 ps-5"><p>${items.jumlah} Pcs</p></td>
+                                <td class="col-2 ps-5"><p>Harga : ${items.harga}</p></td>
+                                <td class="col-2 ps-5"><p>Notes : ${items.notes}</p></td>
+                                <td class="col-2 text-center"><button class="btn btn-outline-dark btn-sm"  type="button" onclick = "deleteItem(${items.id})">delete</button></td> 
                                 `
             displayTable.appendChild(createDiv)
 
@@ -117,7 +120,7 @@ const userDisplayCart = () => {
 
         });
 
-        displayTotalHarga.innerHTML = "Total : " +totalHarga
+        displayTotalHarga.innerHTML = "Rp " +totalHarga+ ",-"
         
     })
 

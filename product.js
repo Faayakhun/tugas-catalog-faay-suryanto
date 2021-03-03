@@ -7,9 +7,11 @@ let logoutGreetings = document.querySelector("#logoutGreetings");
 let logoutButton = document.querySelector("#logoutButton");
 let cartItem = document.querySelector("#cartItem")
 
+
+
+// inisialisasi Local Storage
 let local = localStorage.getItem("user")
 let localObj = JSON.parse(local)
-
 
 
 
@@ -33,6 +35,7 @@ checkout = () => {
 }
 
 
+
 if (local) {
 
     loginButtonHome.setAttribute("class" , "hide")
@@ -49,9 +52,7 @@ if (local) {
     
         .then (result => result.json())
         .then (data => {
-    
             cartItem.innerHTML = "🛒" +data.length
-    
         })
     
     }
@@ -65,12 +66,10 @@ if (local) {
 
 
 
-
 const getData = async () => {
     
     let response = await fetch(url);
     let result = await response.json()
-    console.log(result)
     display(result);
 }
 
@@ -92,7 +91,7 @@ let display = (result)=>{
                                       <h5 class="card-title fs-3 fw-normal">${item.namaProduk}</h5>
                                       <p class="card-text">${item.keterangan}</p>
                                       <a href="${item.desc}" class="btn btn-dark" target= "_blank">Learn more</a>
-                                      <button type="button" onclick = "addToCart(${item.id} , '${item.namaProduk}' ,  ${item.harga} )" class="btn btn-dark"  >Buy for: Rp ${item.harga}</button>
+                                      <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick = "purchased(${item.id},'${item.namaProduk}',${item.harga} )" class="btn btn-dark"  >Purchase</button>
                                       <div class="d-flex justify-content-between align-items-center"> 
                                         <small class="text-muted">© NU-SANTARA</small>
                                       </div>
@@ -100,6 +99,7 @@ let display = (result)=>{
                                   </div>
                                 </div>
                             `;
+
         display.appendChild(createDiv);
 
     });
@@ -108,12 +108,54 @@ let display = (result)=>{
 getData();
 
 
-addToCart =  (id, barang ,harga) => {
+function counter (harga) {
+
+    let quantityUpButton = document.querySelector("#quantityUpButton")
+    let quantityDownButton = document.querySelector("#quantityDownButton")
+    let quantityinput = document.querySelector("#quantityinput")
+    let quantity = parseInt(quantityInput.value)
+    let displayHarga = harga
+    let a = 12345
+    let b = "asd"
+    
+
+        quantityDownButton.addEventListener ("click" , function (){        
+
+            if(quantityInput.value > 1) {
+                quantity --
+                quantityInput.value = quantity
+               itemPrice.innerHTML = (displayHarga -= harga)
+
+            }
+
+        })
+
+        quantityUpButton.addEventListener ("click" , function (){   
+            quantity ++
+            quantityInput.value = quantity
+            itemPrice.innerHTML = (displayHarga += harga)
+
+
+        })
+
+        itemPrice.innerHTML = `${harga}`
+    
+}
+
+purchased =  (id, barang ,harga) => {
 
     if (local == undefined){
         alert ("Please Login or Register to purchase this item")
         return;
     }
+
+    // inisianilisasi Form Order
+    let itemTitle = document.querySelector("#itemTitle")
+    let notesInput = document.querySelector("#notesInput")
+    let itemPrice = document.querySelector("#itemPrice")
+    let totalHargaBarang;
+
+
 
 
     let dataBarangObj = {
@@ -123,17 +165,43 @@ addToCart =  (id, barang ,harga) => {
 
     let dataBarangJSON = JSON.stringify(dataBarangObj)
 
+    console.log("ini button purchased")
 
-    console.log(id)
-    console.log(barang);
-    console.log(harga);
+    // console.log(id)
+    // console.log(barang);
+    // console.log(harga);
+    // console.log(dataBarangJSON);
 
-    console.log(dataBarangJSON);
+    
 
-    const option = {
+    counter(harga);
+
+
+    itemTitle.innerHTML = `${barang}`
+    
+
+}
+
+
+addToCart = () => {
+
+     let totalHargaBarang = itemPrice.innerHTML*quantityInput.value
+
+    barangJSON = JSON.stringify( barangObj = {
+        produk: itemTitle.innerHTML,
+        harga: totalHargaBarang,
+        jumlah: quantityInput.value,
+        notes: notesInput.value
+    } )
+
+    console.log(barangJSON)
+    
+
+
+     const option = {
         method : "POST",
         headers : { "Content-Type" : "application/json" },
-        body : dataBarangJSON
+        body : barangJSON
     }
 
 
@@ -141,7 +209,9 @@ addToCart =  (id, barang ,harga) => {
 
     .then (result => result.json())
     .then (data =>   showCart())
-    .catch (err => console.log("Terjadi kesalahan, ga tau kenapa"))
+    .catch (err => console.log("Error, unable to fetch (check your connection)"))
+    
+
 
 }
 

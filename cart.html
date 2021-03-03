@@ -13,6 +13,8 @@
       body{
         min-height: 100%;
         height: 100vh;
+        /* padding: 0;
+        margin: 0; */
       }
   
       .bgheader{
@@ -49,6 +51,13 @@
       text-align: center;
       margin-top: 10px;
     }       
+
+    /* footer{
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+    } */
     </style>
   </head>
   <body>
@@ -129,86 +138,80 @@
 
    <!-- User's cart display -->
    <div class="hide" id="userEmptyCart" style="text-align: center;">
-    <h3>Your cart is empty,please buy some of our product here: </h3>
-    <a href="product.html"><button>Catalog</button></a>
+    <img src="./images/no-items.png">
+    <h3 class="fw-light mt-2">Your cart is empty, please buy some of our product here: </h3>
+    <button class="btn btn-outline-dark mt-3"><a class="text-decoration-none text-dark" href="product.html">Catalog</a></button>
   </div>
     <div class= "container">
         
-        <div class="row " id="display">
+          <div class="row " id="display">
+            
+            <table class="table table-sm  " id="tesTable">
+            </table>
           
-          <table class="table table-sm  " id="tesTable">
-            
-          </table>
-        
 
-
-          <div class="container">
-
-            <div class="row text-center" >
-
-            <table class="hide" id="displayTotal">
-              
-              
-              <tr>
-                
-                <td class="col-1 text-start"> <h5 class="fw-bold">Total</h5></td>
-                <td class="col-1 text-start ps-5 fw-bold" ><p id="displayTotalHarga">Harga : </p></td>
-                <td class="col-1 text-center"> <button type="button" class="btn btn-sm btn-dark hide" data-bs-toggle="modal" data-bs-target="#exampleModal" id="customModal">Payment</button></td>
-              
-              </tr>
-            
-
-
-           </table>
-
+            <div class="container">
+                <div class="row text-center" >
+                    <table  id="displayTotal">
+                        <tr class="hide" id="totalPaymentRow">
+                          <td class="col-2 text-start "> <h5 class="fw-bold">Total</h5></td>
+                          <td class="col-3 text-center ps-5 fw-bold " ><p id="displayTotalHarga">Harga : </p></td>
+                          <td class="col-2"></td>
+                          <td class="col-2 text-center "> <button type="button" class="btn btn-sm btn-dark hide" data-bs-toggle="modal" data-bs-target="#exampleModal" id="customModal">Payment</button></td>
+                        </tr>
+                  </table>
+                </div>
             </div>
 
-          </div>
-
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Checkout Form</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Recipient:</label>
-                      <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                      <label for="message-text" class="col-form-label">Address:</label>
-                      <textarea class="form-control" id="address-text"></textarea>
-                    </div>
-                    <div class="mb-3">
-                      <label for="message-text" class="col-form-label">*Delivery only to Jakarta Area</label>
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" onclick="checkout()">Purchase</button>
-                </div>
-              </div>
             </div>
-          </div>
-
+    </div>
 
     <!-- User's cart display end -->  
-
-    
-
-
     
       <!-- Membuat footer start -->
-      <footer class="bg-light text-center text-lg-start mt-5">           
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      <footer class="w-100 text-center text-lg-start mt-5 ">           
+        <div class="text-center p-3 " style="background-color: rgba(0, 0, 0, 0.2)">
           © 2021 Faay-Suryanto: <strong>All Right Reserved</strong>
         </div>   
       </footer> 
       <!-- Membuat footer end -->
+
+
+
+      <!-- Final Checkout Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Checkout Form</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Recipient:</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Address:</label>
+                  <textarea class="form-control" id="address-text"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">*Delivery only to Jakarta Area</label>
+                </div>
+              </form>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="checkout()">Purchase</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
 
 
 
