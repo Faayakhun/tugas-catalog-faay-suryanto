@@ -116,7 +116,9 @@ const userDisplayCart = () => {
                                 `
             displayTable.appendChild(createDiv)
 
-            totalHarga += items.harga
+            let itemHarga = parseInt(items.harga)
+
+            totalHarga += itemHarga
 
         });
 

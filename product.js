@@ -187,7 +187,7 @@ purchased =  (id, barang ,harga) => {
 
 addToCart = () => {
 
-     let totalHargaBarang = itemPrice.innerHTML*quantityInput.value
+     let totalHargaBarang = itemPrice.innerHTML
 
     barangJSON = JSON.stringify( barangObj = {
         produk: itemTitle.innerHTML,
