@@ -59,12 +59,7 @@ if (local) {
     
     showCart()
 
-
-
 }
-
-
-
 
 const getData = async () => {
     
@@ -72,7 +67,6 @@ const getData = async () => {
     let result = await response.json()
     display(result);
 }
-
 
 
 let display = (result)=>{
@@ -91,7 +85,7 @@ let display = (result)=>{
                                       <h5 class="card-title fs-3 fw-normal">${item.namaProduk}</h5>
                                       <p class="card-text">${item.keterangan}</p>
                                       <a href="${item.desc}" class="btn btn-dark" target= "_blank">Learn more</a>
-                                      <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick = "purchased(${item.id},'${item.namaProduk}',${item.harga} )" class="btn btn-dark"  >Purchase</button>
+                                      <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick = "purchased(${item.id},'${item.namaProduk}',${item.harga} )" class="btn btn-dark" id=""btnPurchase >Purchase</button>
                                       <div class="d-flex justify-content-between align-items-center"> 
                                         <small class="text-muted">© NU-SANTARA</small>
                                       </div>
@@ -126,7 +120,7 @@ function counter (harga) {
                 quantity --
                 quantityInput.value = quantity
                itemPrice.innerHTML = (displayHarga -= harga)
-               console.log(quantity)
+           
 
             }
 
@@ -136,20 +130,18 @@ function counter (harga) {
             quantity ++
             quantityInput.value = quantity
             itemPrice.innerHTML = (displayHarga += harga)
-            console.log(quantity)
-
         })
 
         itemPrice.innerHTML = `${harga}`
     
 }
 
-purchased =  (id, barang ,harga) => {
+purchased =  (id, barang ,harga, esc) => {
 
-    if (local == undefined){
-        alert ("Please Login or Register to purchase this item")
-        return;
-    }
+    
+
+
+   
 
     // inisianilisasi Form Order
     let itemTitle = document.querySelector("#itemTitle")
@@ -157,28 +149,13 @@ purchased =  (id, barang ,harga) => {
     let itemPrice = document.querySelector("#itemPrice")
     let totalHargaBarang;
 
-
-
-
     let dataBarangObj = {
         produk : barang,
         harga : harga,
     }
 
     let dataBarangJSON = JSON.stringify(dataBarangObj)
-
-    console.log("ini button purchased")
-
-    // console.log(id)
-    // console.log(barang);
-    // console.log(harga);
-    // console.log(dataBarangJSON);
-
-    
-
     counter(harga);
-
-
     itemTitle.innerHTML = `${barang}`
     
 
@@ -186,6 +163,11 @@ purchased =  (id, barang ,harga) => {
 
 
 addToCart = () => {
+
+    if (local == undefined){
+        alert ("Please Login or Register to purchase this item")
+        return;
+    }
 
      let totalHargaBarang = itemPrice.innerHTML
 
@@ -195,10 +177,6 @@ addToCart = () => {
         jumlah: quantityInput.value,
         notes: notesInput.value
     } )
-
-    console.log(barangJSON)
-    
-
 
      const option = {
         method : "POST",
